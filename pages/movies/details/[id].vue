@@ -37,24 +37,26 @@ type ReturnType = void | NavigationFailure;
 </script>
 
 <template>
-  <section
+  <article
     v-if="movie"
     class="p-6 max-w-3xl mx-auto bg-white rounded shadow-sm sm:flex sm:gap-5 mb-20"
   >
     <!-- Movie Poster -->
-    <img
-      :src="movie.Poster"
-      :alt="movie.Title"
-      class="w-full rounded shadow mb-4"
-    />
+    <section>
+      <img
+        :src="movie.Poster"
+        :alt="movie.Title"
+        class="w-full rounded shadow mb-4"
+      />
+    </section>
 
     <!-- Movie Details -->
-    <div class="">
+    <section>
       <h1 class="text-2xl font-bold">{{ movie.Title }}</h1>
       <p class="text-gray-600 my-2">{{ movie.Plot }}</p>
       <p><strong>Rating:</strong> {{ movie.imdbRating }}</p>
       <p><strong>Genre:</strong> {{ movie.Genre }}</p>
       <p><strong>Director:</strong> {{ movie.Director }}</p>
-    </div>
-  </section>
+    </section>
+  </article>
 </template>

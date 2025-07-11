@@ -9,10 +9,12 @@
     :to="movieLink"
     class="movie-card-wrapper"
   >
-    <img
-      :src="movie.Poster"
-      :alt="movie.Title"
-      class="movie-card-image"
-    />
+    <article>
+      <img
+        :src="movie.Poster"
+        :alt="movie.Title"
+        class="movie-card-image"
+      />
+    </article>
   </NuxtLink>
 </template>

@@ -4,6 +4,10 @@ A Nuxt app that allows users to search for and view details of movies using the 
 
 ---
 
+## Demo Link (Vercel)
+
+This app is hosted on https://xcentium-mini-netflix-app.vercel.app/
+
 ## Features
 
 - Search movies by title

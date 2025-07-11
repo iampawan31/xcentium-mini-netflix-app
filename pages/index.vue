@@ -37,7 +37,14 @@
               :movie="movie"
             />
           </div>
-          <div v-else>
+          <div
+            v-else
+            class="flex flex-col justify-center items-center h-48 w-full py-10"
+          >
+            <Icon
+              name="material-symbols:cancel-rounded"
+              size="10rem"
+            />
             <div class="h-48 text-2xl">No results found.</div>
           </div>
         </div>

@@ -41,47 +41,57 @@ export const useMoviesStore = defineStore('movies', () => {
     }
   }
 
-  const fetchMoviesByQueryString = useDebounce(async (): Promise<void> => {
-    try {
-      start()
+  const fetchMoviesByQueryString = useDebounce(
+    async (searchTerm: string): Promise<void> => {
+      try {
+        if (!searchTerm || searchTerm.length < 3) {
+          isSearching.value = false
+          movies.value = []
 
-      isSearching.value = true
+          return
+        }
+        start()
 
-      if (!hasViewedMovies.value) {
-        viewedMovies.value = [...prePopulatedMovieIds]
+        isSearching.value = true
+
+        if (!hasViewedMovies.value) {
+          viewedMovies.value = [...prePopulatedMovieIds]
+        }
+
+        const response = (await $fetch(
+          `https://www.omdbapi.com/?s=${searchQuery.value}&apikey=${config.public.omdbApiKey}`
+        )) as OBDBResponse
+
+        if (response.Response === 'true') {
+          movies.value = response.Search as Movie[]
+        } else {
+          toast.error({ title: 'Error', message: response.Error })
+        }
+      } catch (error) {
+        if (error instanceof Error) {
+          toast.error({ title: 'Error', message: error.message })
+        } else {
+          toast.error({
+            title: 'Error',
+            message: 'An unexpected error occurred'
+          })
+        }
+      } finally {
+        isSearching.value = false
+        finish()
       }
-
-      const response: OBDBResponse = await $fetch(
-        `https://www.omdbapi.com/?s=${searchQuery.value}&apikey=${config.public.omdbApiKey}`
-      )
-
-      if (response.Response === 'true') {
-        movies.value = response.Search as Movie[]
-      } else {
-        toast.error({ title: 'Error', message: response.Error })
-      }
-    } catch (error) {
-      if (error instanceof Error) {
-        toast.error({ title: 'Error', message: error.message })
-      } else {
-        toast.error({ title: 'Error', message: 'An unexpected error occurred' })
-      }
-    } finally {
-      isSearching.value = false
-      finish()
-    }
-  }, 300)
+    },
+    300
+  )
 
   //   Watchers
   watch(
     () => searchQuery.value,
     async (val: string) => {
-      if (!val || val.length < 3) {
-        isSearching.value = false
-        movies.value = []
-        return
-      }
-      await fetchMoviesByQueryString()
+      await fetchMoviesByQueryString(searchQuery.value)
+    },
+    {
+      immediate: true
     }
   )
 

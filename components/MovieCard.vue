@@ -14,7 +14,7 @@
     :to="movieLink"
     class="movie-card-wrapper"
   >
-    <article>
+    <article v-motion-pop-bottom>
       <img
         :src="movie.Poster"
         :alt="movie.Title"

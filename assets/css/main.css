@@ -24,3 +24,13 @@ body {
 .movie-card-image {
   @apply w-full h-full md:h-96 relative object-cover rounded-lg overflow-hidden hover:shadow-xl hover:scale-110 transition-all;
 }
+
+#search-movie::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  height: 16px;
+  width: 16px;
+  background-color: white;
+  background: url('/close-x.svg') no-repeat center;
+  background-size: contain;
+  cursor: pointer;
+}

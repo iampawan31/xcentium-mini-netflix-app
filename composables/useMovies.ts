@@ -21,9 +21,6 @@ export const useMovies = (): {
   hasViewedMovies: Ref<boolean>
   addMovie: (movieId: string) => void
 } => {
-  // Load initial values for viewed movies
-  loadFromStorage()
-
   const hasViewedMovies = computed<boolean>(() => viewedMovies.value.length > 0)
 
   const addMovie = (movieId: string): void => {
@@ -43,6 +40,11 @@ export const useMovies = (): {
       viewedMovies.value.pop()
     }
   }
+
+  onMounted(() => {
+    // Load initial values for viewed movies
+    loadFromStorage()
+  })
 
   return {
     viewedMovies,

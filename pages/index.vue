@@ -1,33 +1,10 @@
 <script setup lang="ts">
-  const toast = useToast()
-  const config = useRuntimeConfig()
-  const movies = ref<Movie[]>([])
+  import { useMoviesStore } from '~/components/store/useMoviesStore'
 
-  const { viewedMovies, hasViewedMovies } = useMovies()
-
-  const fetchPrepopulatedMovies = async (): Promise<void> => {
-    try {
-      if (!hasViewedMovies.value) {
-        viewedMovies.value = [...prePopulatedMovieIds]
-      }
-
-      const response = await Promise.all(
-        viewedMovies.value.map((id) =>
-          $fetch(
-            `https://www.omdbapi.com/?i=${id}&apikey=${config.public.omdbApiKey}`
-          )
-        )
-      )
-
-      movies.value = response as Movie[]
-    } catch (error) {
-      if (error instanceof Error) {
-        toast.error({ title: 'Error', message: error.message })
-      } else {
-        toast.error({ title: 'Error', message: 'An unexpected error occurred' })
-      }
-    }
-  }
+  const { isSearching, movies, prePopulatedMovies, searchQuery } = storeToRefs(
+    useMoviesStore()
+  )
+  const { fetchPrepopulatedMovies } = useMoviesStore()
 
   fetchPrepopulatedMovies()
 </script>
@@ -39,25 +16,44 @@
     >
       <h1
         v-motion-pop-bottom
-        class="text-lg sm:text-2xl px-2 sm:px-4"
+        class="text-lg sm:text-3xl px-2 sm:px-4"
       >
         Welcome to MiniFlix. Click on a movie poster below to view movie details
       </h1>
-      <div
-        v-if="movies.length > 0"
-        class="p-2 sm:p-4 grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 grid md:grid-cols-5 gap-5"
-      >
-        <MovieCard
-          v-for="movie in movies"
-          :key="movie.imdbID"
-          :movie="movie"
-        />
+      <MovieSearch />
+      <div v-if="searchQuery">
+        <div v-if="isSearching">
+          Fetching results
+          <!-- Show Loading spinner -->
+        </div>
+        <div v-else>
+          <div
+            v-if="movies.length > 0"
+            class="p-2 sm:p-4 grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 grid md:grid-cols-3 lg:grid-cols-5 gap-2 md:gap-3 lg:gap-5"
+          >
+            <MovieCard
+              v-for="movie in movies"
+              :key="movie.imdbID"
+              :movie="movie"
+            />
+          </div>
+          <div v-else>
+            <div class="h-48 text-2xl">No results found.</div>
+          </div>
+        </div>
       </div>
-      <div
-        v-else
-        class=""
-      >
-        <div class="h-48 text-2xl">No results found.</div>
+      <div v-else>
+        <h2 class="text-xl sm:text-2xl px-2 sm:px-4">Recently Viewed Movies</h2>
+        <div
+          v-if="prePopulatedMovies.length > 0"
+          class="p-2 sm:p-4 grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 grid md:grid-cols-3 lg:grid-cols-5 gap-2 md:gap-3 lg:gap-5"
+        >
+          <MovieCard
+            v-for="movie in prePopulatedMovies"
+            :key="movie.imdbID"
+            :movie="movie"
+          />
+        </div>
       </div>
     </main>
   </div>

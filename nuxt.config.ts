@@ -47,7 +47,8 @@ export default defineNuxtConfig({
     '@nuxt/scripts',
     '@pinia/nuxt',
     'nuxt-toast',
-    '@vueuse/motion/nuxt'
+    '@vueuse/motion/nuxt',
+    'nuxt-lodash'
   ],
   runtimeConfig: {
     public: {

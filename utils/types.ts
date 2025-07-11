@@ -28,3 +28,10 @@ export type Movie = {
   Website: string
   Response: string
 }
+
+export type OBDBResponse = {
+  Search: Movie[]
+  totalResults: string
+  Response: string
+  Error?: string
+}

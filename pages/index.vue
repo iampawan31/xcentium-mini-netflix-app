@@ -31,7 +31,10 @@
     <main
       class="flex flex-col gap-4 bg-white rounded shadow-sm py-10 px-2 sm:px-4"
     >
-      <h1 class="text-lg sm:text-2xl px-2 sm:px-4">
+      <h1
+        v-motion-pop-bottom
+        class="text-lg sm:text-2xl px-2 sm:px-4"
+      >
         Welcome to MiniFlix. Click on a movie poster below to view movie details
       </h1>
       <div

@@ -6,5 +6,6 @@
     <div class="px-4 mt-10 sm:px-0 container mx-auto">
       <slot />
     </div>
+    <PageFooter />
   </div>
 </template>

@@ -37,6 +37,7 @@
 <template>
   <article
     v-if="movie"
+    v-motion-pop-bottom
     class="p-6 max-w-3xl mx-auto bg-white rounded shadow-sm sm:flex sm:gap-5 mb-20"
   >
     <!-- Movie Poster -->

@@ -6,7 +6,7 @@
     }
   })
 
-  const movieLink = `/movies/details/${movie.imdbID}`
+  const movieLink = `/movie/details/${movie.imdbID}`
 </script>
 
 <template>

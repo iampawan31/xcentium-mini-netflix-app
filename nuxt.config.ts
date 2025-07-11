@@ -46,12 +46,29 @@ export default defineNuxtConfig({
     '@nuxt/test-utils',
     '@nuxt/scripts',
     '@pinia/nuxt',
-    'nuxt-toast'
+    'nuxt-toast',
+    '@vueuse/motion/nuxt'
   ],
   runtimeConfig: {
     public: {
       omdbApiKey: process.env.OMDB_API_KEY,
-      apiBaseUrl: process.env.OMDB_API_URL
+      apiBaseUrl: process.env.OMDB_API_URL,
+      motion: {
+        directives: {
+          'pop-bottom': {
+            initial: {
+              scale: 0,
+              opacity: 0,
+              y: 100
+            },
+            visible: {
+              scale: 1,
+              opacity: 1,
+              y: 0
+            }
+          }
+        }
+      }
     }
   }
 })

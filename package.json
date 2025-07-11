@@ -19,6 +19,7 @@
     "@pinia/nuxt": "^0.11.1",
     "@tailwindcss/vite": "^4.1.11",
     "@unhead/vue": "^2.0.12",
+    "@vueuse/motion": "^3.0.3",
     "eslint": "^9.30.1",
     "izitoast": "^1.4.0",
     "nuxt": "^3.17.6",

@@ -18,5 +18,5 @@
 }
 
 .movie-card-image {
-  @apply w-full h-96 relative object-cover rounded-lg overflow-hidden;
+  @apply w-full h-96 relative object-cover rounded-lg overflow-hidden hover:scale-110 transition-all;
 }

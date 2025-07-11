@@ -15,7 +15,10 @@
 
 <template>
   <div class="">
-    <main class="flex flex-col gap-4">
+    <main class="flex flex-col gap-4 bg-white rounded shadow-sm py-10 px-4">
+      <h1 class="text-2xl px-4">
+        Welcome to MiniFlix. Click on a movie poster below to view movie details
+      </h1>
       <div
         v-if="movies.length > 0"
         class="p-4 grid-cols-1 grid sm:grid-cols-5 gap-5"
@@ -30,9 +33,7 @@
         v-else
         class=""
       >
-        <BaseCard>
-          <div class="h-48 text-2xl">No results found.</div>
-        </BaseCard>
+        <div class="h-48 text-2xl">No results found.</div>
       </div>
     </main>
   </div>

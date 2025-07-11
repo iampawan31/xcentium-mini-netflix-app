@@ -1,75 +1,50 @@
-# Nuxt Minimal Starter
+# MiniFlix
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+A Nuxt app that allows users to search for and view details of movies using the [OMDb API](https://www.omdbapi.com/). Recently viewed movies are stored locally and prepopulated for easy access.
 
-## Setup
+---
 
-Make sure to install dependencies:
+## Features
 
-```bash
-# npm
-npm install
+- Search movies by title
+- View full movie details
+- Automatically save last viewed movies (in `localStorage`)
+- Responsive design (mobile-friendly)
 
-# pnpm
-pnpm install
+---
 
-# yarn
-yarn install
+## Setup Instructions
 
-# bun
-bun install
-```
+1. **Clone the Repository**
 
-## Development Server
+   ```bash
+   git clone https://github.com/iampawan31/xcentium-mini-netflix-app.git
+   cd xcentium-mini-netflix-app
+   ```
 
-Start the development server on `http://localhost:3000`:
+2. **Install Dependencies**
 
-```bash
-# npm
-npm run dev
+   ```bash
+   npm install
+   ```
 
-# pnpm
-pnpm dev
+3. **Add Environment Variables**
 
-# yarn
-yarn dev
+   Create a `.env` file (or `.env.local` in Nuxt):
 
-# bun
-bun run dev
-```
+   ```env
+   OMDB_API_KEY=your_api_key_here
+   ```
 
-## Production
+4. **Run the Development Server**
 
-Build the application for production:
+   ```bash
+   npm run dev
+   ```
 
-```bash
-# npm
-npm run build
+5. **Build for Production**
 
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+   ```bash
+   npm run build
+   npm run preview
+   ```

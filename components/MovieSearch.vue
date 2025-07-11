@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { useMoviesStore } from './store/useMoviesStore'
+  import { useMoviesStore } from '../store/useMoviesStore'
 
   const { searchQuery } = storeToRefs(useMoviesStore())
 </script>

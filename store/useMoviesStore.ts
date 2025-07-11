@@ -2,7 +2,7 @@ export const useMoviesStore = defineStore('movies', () => {
   const toast = useToast()
   const config = useRuntimeConfig()
   const { start, set, finish } = useLoadingIndicator()
-  const { viewedMovies, hasViewedMovies } = useMovies()
+  const { isLoaded, viewedMovies, hasViewedMovies } = useMovies()
 
   // State
   const searchQuery = ref<string>('')
@@ -10,17 +10,11 @@ export const useMoviesStore = defineStore('movies', () => {
   const movies = ref<Movie[]>([])
   const isSearching = ref<boolean>(false)
 
-  //   Getters
-
   // Actions
   const fetchPrepopulatedMovies = async (): Promise<void> => {
     try {
       set(0, { force: true })
       start()
-
-      if (!hasViewedMovies.value) {
-        viewedMovies.value = [...prePopulatedMovieIds]
-      }
 
       const response = await Promise.all(
         viewedMovies.value.map((id) =>
@@ -56,13 +50,9 @@ export const useMoviesStore = defineStore('movies', () => {
 
         start()
 
-        if (!hasViewedMovies.value) {
-          viewedMovies.value = [...prePopulatedMovieIds]
-        }
-
-        const response = (await $fetch(
+        const response: OBDBResponse = await $fetch(
           `https://www.omdbapi.com/?s=${searchQuery.value}&apikey=${config.public.omdbApiKey}`
-        )) as OBDBResponse
+        )
 
         if (response.Response === 'True') {
           movies.value = response.Search as Movie[]
@@ -96,6 +86,12 @@ export const useMoviesStore = defineStore('movies', () => {
       immediate: true
     }
   )
+
+  watchEffect(() => {
+    if (isLoaded.value && !hasViewedMovies.value) {
+      viewedMovies.value = [...prePopulatedMovieIds]
+    }
+  })
 
   return {
     // State

@@ -1,27 +1,39 @@
-const viewedMovies = ref<string[]>([])
-
-const loadFromStorage = (): void => {
-  if (import.meta.client) {
-    const stored = localStorage.getItem(STORAGE_KEY)
-
-    if (stored) {
-      viewedMovies.value = JSON.parse(stored)
-    }
-  }
-}
-
-watch(viewedMovies, (newVal) => {
-  if (import.meta.client) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(newVal))
-  }
-})
-
 export const useMovies = (): {
+  isLoaded: Ref<boolean>
   viewedMovies: Ref<string[]>
   hasViewedMovies: Ref<boolean>
   addMovie: (movieId: string) => void
 } => {
-  const hasViewedMovies = computed<boolean>(() => viewedMovies.value.length > 0)
+  const viewedMovies = useState<string[]>('viewed-movies', () => [])
+  const isLoaded = ref<boolean>(false)
+
+  const hasViewedMovies = computed<boolean>(
+    () => isLoaded.value && viewedMovies.value.length > 0
+  )
+
+  const loadFromStorage = (): void => {
+    if (import.meta.client) {
+      try {
+        const stored = localStorage.getItem(STORAGE_KEY)
+        if (stored) {
+          const parsedMovies = JSON.parse(stored)
+          viewedMovies.value = parsedMovies
+        }
+      } catch (error) {
+        console.warn('Failed to load viewed movies from localStorage:', error)
+      }
+    }
+  }
+
+  const saveToStorage = (): void => {
+    if (import.meta.client) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(viewedMovies.value))
+      } catch (error) {
+        console.warn('Failed to save viewed movies to localStorage:', error)
+      }
+    }
+  }
 
   const addMovie = (movieId: string): void => {
     const movieAlreadyViewed = viewedMovies.value.find((vM) => vM === movieId)
@@ -37,16 +49,20 @@ export const useMovies = (): {
       viewedMovies.value.unshift(movieId)
 
       //   Check if viewedMovies count is greater than 5. If yes, then remove the last entry from array
-      viewedMovies.value.pop()
+      if (viewedMovies.value.length > 5) {
+        viewedMovies.value.pop()
+      }
     }
+
+    saveToStorage()
   }
 
   onMounted(() => {
-    // Load initial values for viewed movies
     loadFromStorage()
   })
 
   return {
+    isLoaded,
     viewedMovies,
     hasViewedMovies,
     addMovie

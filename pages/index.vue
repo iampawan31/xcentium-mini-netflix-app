@@ -1,12 +1,15 @@
 <script setup lang="ts">
-  import { useMoviesStore } from '~/components/store/useMoviesStore'
+  import { useMoviesStore } from '~/store/useMoviesStore'
 
   const { isSearching, movies, prePopulatedMovies, searchQuery } = storeToRefs(
     useMoviesStore()
   )
   const { fetchPrepopulatedMovies } = useMoviesStore()
 
-  fetchPrepopulatedMovies()
+  onMounted(async () => {
+    searchQuery.value = ''
+    await fetchPrepopulatedMovies()
+  })
 </script>
 
 <template>

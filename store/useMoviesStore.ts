@@ -87,12 +87,6 @@ export const useMoviesStore = defineStore('movies', () => {
     }
   )
 
-  watchEffect(() => {
-    if (isLoaded.value && !hasViewedMovies.value) {
-      viewedMovies.value = [...prePopulatedMovieIds]
-    }
-  })
-
   return {
     // State
     movies,

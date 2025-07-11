@@ -18,6 +18,8 @@ export const useMovies = (): {
         if (stored) {
           const parsedMovies = JSON.parse(stored)
           viewedMovies.value = parsedMovies
+        } else {
+          viewedMovies.value = [...prePopulatedMovieIds]
         }
       } catch (error) {
         console.warn('Failed to load viewed movies from localStorage:', error)

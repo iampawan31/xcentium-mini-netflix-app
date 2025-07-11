@@ -39,7 +39,7 @@ type ReturnType = void | NavigationFailure;
 <template>
   <section
     v-if="movie"
-    class="p-6 max-w-3xl mx-auto bg-white rounded shadow-sm sm:flex sm:gap-5"
+    class="p-6 max-w-3xl mx-auto bg-white rounded shadow-sm sm:flex sm:gap-5 mb-20"
   >
     <!-- Movie Poster -->
     <img

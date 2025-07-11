@@ -1,4 +1,4 @@
-export const prePopulatedMovieIds = [
+export const prePopulatedMovieIds: string[] = [
   'tt1856101',
   'tt0816692',
   'tt0118884',

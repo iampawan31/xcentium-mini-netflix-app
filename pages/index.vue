@@ -3,10 +3,16 @@
   const config = useRuntimeConfig()
   const movies = ref<Movie[]>([])
 
+  const { viewedMovies, hasViewedMovies } = useMovies()
+
   const fetchPrepopulatedMovies = async (): Promise<void> => {
     try {
+      if (!hasViewedMovies.value) {
+        viewedMovies.value = [...prePopulatedMovieIds]
+      }
+
       const response = await Promise.all(
-        prePopulatedMovieIds.map((id) =>
+        viewedMovies.value.map((id) =>
           $fetch(
             `https://www.omdbapi.com/?i=${id}&apikey=${config.public.omdbApiKey}`
           )

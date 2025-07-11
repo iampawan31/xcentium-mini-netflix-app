@@ -4,6 +4,8 @@
   const router = useRouter()
   const config = useRuntimeConfig()
 
+  const { addMovie } = useMovies()
+
   const movie = ref<Movie | null>(null)
 
   const fetchMovieByID = async (): Promise<void> => {
@@ -22,6 +24,9 @@
       )
 
       movie.value = response as Movie
+
+      // Add Movie to local storage
+      addMovie(movie.value.imdbID)
     } catch (error: unknown) {
       if (error instanceof Error) {
         toast.error({ title: 'Error', message: error.message })

@@ -13,16 +13,12 @@
   --font-body: 'Bricolage Grotesque', 'sans-serif';
 }
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   background-color: var(--color-secondary);
-}
-
-.movie-card-wrapper {
-  @apply block bg-white rounded-lg shadow hover:shadow-xl transition overflow-hidden p-2 transition-all;
-}
-
-.movie-card-image {
-  @apply w-full h-full md:h-96 relative object-cover rounded-lg overflow-hidden hover:shadow-xl hover:scale-110 transition-all;
 }
 
 #search-movie::-webkit-search-cancel-button {

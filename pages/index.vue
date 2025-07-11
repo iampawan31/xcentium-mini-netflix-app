@@ -22,9 +22,15 @@
       </h1>
       <MovieSearch />
       <div v-if="searchQuery">
-        <div v-if="isSearching">
-          Fetching results
-          <!-- Show Loading spinner -->
+        <div
+          v-if="isSearching"
+          class="flex flex-col justify-center items-center h-48 w-full py-10"
+        >
+          <Icon
+            name="material-symbols:downloading"
+            size="10rem"
+          />
+          <div class="h-48 text-2xl">Searching...</div>
         </div>
         <div v-else>
           <div

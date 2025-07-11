@@ -17,6 +17,7 @@ export const useMoviesStore = defineStore('movies', () => {
     try {
       set(0, { force: true })
       start()
+
       if (!hasViewedMovies.value) {
         viewedMovies.value = [...prePopulatedMovieIds]
       }
@@ -43,16 +44,17 @@ export const useMoviesStore = defineStore('movies', () => {
 
   const fetchMoviesByQueryString = useDebounce(
     async (searchTerm: string): Promise<void> => {
+      isSearching.value = true
+
       try {
-        if (!searchTerm || searchTerm.length < 3) {
-          isSearching.value = false
+        if (searchTerm.length < 3) {
           movies.value = []
+          isSearching.value = false
 
           return
         }
-        start()
 
-        isSearching.value = true
+        start()
 
         if (!hasViewedMovies.value) {
           viewedMovies.value = [...prePopulatedMovieIds]
@@ -62,7 +64,7 @@ export const useMoviesStore = defineStore('movies', () => {
           `https://www.omdbapi.com/?s=${searchQuery.value}&apikey=${config.public.omdbApiKey}`
         )) as OBDBResponse
 
-        if (response.Response === 'true') {
+        if (response.Response === 'True') {
           movies.value = response.Search as Movie[]
         } else {
           toast.error({ title: 'Error', message: response.Error })
@@ -88,7 +90,7 @@ export const useMoviesStore = defineStore('movies', () => {
   watch(
     () => searchQuery.value,
     async (val: string) => {
-      await fetchMoviesByQueryString(searchQuery.value)
+      await fetchMoviesByQueryString(val)
     },
     {
       immediate: true

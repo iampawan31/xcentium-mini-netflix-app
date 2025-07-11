@@ -1,32 +1,38 @@
 <script setup lang="ts">
-  import { useOmdbTitlesStore } from '~/store/useOmdbTitlesStore'
-
   const config = useRuntimeConfig()
-  const { hasTitles, titles } = storeToRefs(useOmdbTitlesStore())
 
-  const { data } = await useFetch(
-    `${config.public.apiBaseUrl}/?apiKey=${config.public.omdbAPIKey}&s`
+  const movies = ref<Title[]>([])
+  const response = await Promise.all(
+    prePopulatedMovieIds.map((id) =>
+      $fetch(
+        `https://www.omdbapi.com/?i=${id}&apikey=${config.public.omdbApiKey}`
+      )
+    )
   )
+
+  movies.value = response as Title[]
 </script>
 
 <template>
   <div class="">
-    <main>
+    <main class="flex flex-col gap-4">
       <div
-        v-if="hasTitles"
-        class=""
+        v-if="movies.length > 0"
+        class="p-4 grid-cols-1 grid sm:grid-cols-5 gap-5"
       >
         <MovieCard
-          v-for="title in titles"
-          :key="title.imdbID"
-          :title="title"
+          v-for="movie in movies"
+          :key="movie.imdbID"
+          :movie="movie"
         />
       </div>
       <div
         v-else
         class=""
       >
-        <div class="">No results found. Please search for a title</div>
+        <BaseCard>
+          <div class="h-48 text-2xl">No results found.</div>
+        </BaseCard>
       </div>
     </main>
   </div>

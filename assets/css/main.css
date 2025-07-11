@@ -2,12 +2,21 @@
 
 /* Miniflix theme variables */
 @theme {
-  --primary: oklch(55.98% 0.23 29.23);
-  --secondary: oklch(42.91% 0.012 17.63);
-  --accent: oklch(39.19% 0.148 27.59);
-  --black: oklch(0% 0 0);
-  --white: oklch(100% 0 0);
+  --color-primary: oklch(55.98% 0.23 29.23);
+  --color-secondary: oklch(42.91% 0.012 17.63);
+  --color-accent: oklch(39.19% 0.148 27.59);
+  --color-black: oklch(0% 0 0);
+  --color-white: oklch(100% 0 0);
 
   /* Fonts */
   --font-logo: 'Bowlby One';
+  --font-body: 'Raleway';
+}
+
+.movie-card-wrapper {
+  @apply block bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden p-2;
+}
+
+.movie-card-image {
+  @apply w-full h-96 relative object-cover rounded-lg overflow-hidden;
 }

@@ -7,3 +7,10 @@ export type Title = {
   Type: string
   Poster: string
 }
+
+export type OmdbQueryResponseType = {
+  Search: Title[]
+  totalResults: string
+  Response: string
+  Error?: string
+}

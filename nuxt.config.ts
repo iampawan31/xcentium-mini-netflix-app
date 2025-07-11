@@ -21,7 +21,7 @@ export default defineNuxtConfig({
   ],
   runtimeConfig: {
     public: {
-      omdbAPIKey: process.env.OMDB_API_KEY,
+      omdbApiKey: process.env.OMDB_API_KEY,
       apiBaseUrl: process.env.OMDB_API_URL
     }
   }

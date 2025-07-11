@@ -1,9 +1,10 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div class="bg-accent min-h-screen w-full">
+  <div class="bg-secondary min-h-screen w-full font-body">
     <NavBar />
-    <slot />
+    <div class="px-4 mt-10 sm:px-0 container mx-auto">
+      <slot />
+    </div>
   </div>
 </template>
-<style scoped></style>

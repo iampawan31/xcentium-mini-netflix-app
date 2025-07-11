@@ -15,6 +15,14 @@ export default defineNuxtConfig({
     '@nuxt/icon',
     '@nuxt/image',
     '@nuxt/test-utils',
-    '@nuxt/scripts'
-  ]
+    '@nuxt/scripts',
+    '@pinia/nuxt',
+    'nuxt-toast'
+  ],
+  runtimeConfig: {
+    public: {
+      omdbAPIKey: process.env.OMDB_API_KEY,
+      apiBaseUrl: process.env.OMDB_API_URL
+    }
+  }
 })

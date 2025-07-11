@@ -1,12 +1,10 @@
-type ReturnType = void | NavigationFailure;
-
 <script setup lang="ts">
   const toast = useToast()
   const route = useRoute()
   const router = useRouter()
   const config = useRuntimeConfig()
 
-  const movie = ref()
+  const movie = ref<Movie | null>(null)
 
   const fetchMovieByID = async (): Promise<void> => {
     try {
@@ -23,7 +21,7 @@ type ReturnType = void | NavigationFailure;
         `https://www.omdbapi.com/?i=${movieId}&apikey=${config.public.omdbApiKey}`
       )
 
-      movie.value = response
+      movie.value = response as Movie
     } catch (error: unknown) {
       if (error instanceof Error) {
         toast.error({ title: 'Error', message: error.message })

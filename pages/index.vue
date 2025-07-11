@@ -1,16 +1,29 @@
 <script setup lang="ts">
+  const toast = useToast()
   const config = useRuntimeConfig()
-
   const movies = ref<Movie[]>([])
-  const response = await Promise.all(
-    prePopulatedMovieIds.map((id) =>
-      $fetch(
-        `https://www.omdbapi.com/?i=${id}&apikey=${config.public.omdbApiKey}`
-      )
-    )
-  )
 
-  movies.value = response as Movie[]
+  const fetchPrepopulatedMovies = async (): Promise<void> => {
+    try {
+      const response = await Promise.all(
+        prePopulatedMovieIds.map((id) =>
+          $fetch(
+            `https://www.omdbapi.com/?i=${id}&apikey=${config.public.omdbApiKey}`
+          )
+        )
+      )
+
+      movies.value = response as Movie[]
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error({ title: 'Error', message: error.message })
+      } else {
+        toast.error({ title: 'Error', message: 'An unexpected error occurred' })
+      }
+    }
+  }
+
+  fetchPrepopulatedMovies()
 </script>
 
 <template>

@@ -1,5 +1,10 @@
 <script setup lang="ts">
-  const { movie } = defineProps({ movie: Object })
+  const { movie } = defineProps({
+    movie: {
+      type: Object as PropType<Movie>,
+      required: true
+    }
+  })
 
   const movieLink = `/movies/details/${movie.imdbID}`
 </script>

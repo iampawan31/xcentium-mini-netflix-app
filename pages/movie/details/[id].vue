@@ -43,24 +43,28 @@
   <article
     v-if="movie"
     v-motion-pop-bottom
-    class="p-6 max-w-3xl mx-auto bg-white rounded shadow-sm sm:flex sm:gap-5 mb-20"
+    class="p-6 max-w-2xl sm:max-w-5xl mx-auto bg-white rounded shadow-sm sm:flex sm:gap-5 mb-20"
   >
     <!-- Movie Poster -->
-    <section>
+    <div class="sm:w-1/3">
       <img
         :src="movie.Poster"
         :alt="movie.Title"
-        class="w-full rounded shadow mb-4"
+        class="w-full h-auto rounded shadow mb-4"
       />
-    </section>
+    </div>
 
     <!-- Movie Details -->
-    <section>
-      <h1 class="text-2xl font-bold">{{ movie.Title }}</h1>
+    <div class="sm:w-2/3">
+      <h1 class="text-3xl font-bold mb-2">{{ movie.Title }}</h1>
+      <span class="bg-accent rounded-xl text-white px-2 py-1">{{
+        movie.Released
+      }}</span>
       <p class="text-gray-600 my-2">{{ movie.Plot }}</p>
       <p><strong>Rating:</strong> {{ movie.imdbRating }}</p>
       <p><strong>Genre:</strong> {{ movie.Genre }}</p>
       <p><strong>Director:</strong> {{ movie.Director }}</p>
-    </section>
+      <p><strong>Actors:</strong> {{ movie.Actors }}</p>
+    </div>
   </article>
 </template>

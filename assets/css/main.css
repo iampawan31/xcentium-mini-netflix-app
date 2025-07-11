@@ -10,7 +10,7 @@
 
   /* Fonts */
   --font-logo: 'Bowlby One';
-  --font-body: 'Raleway';
+  --font-body: 'Bricolage Grotesque', 'sans-serif';
 }
 
 body {
